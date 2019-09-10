@@ -9,7 +9,9 @@ The goals for Lab 1 are:
 4. Everyone knows how to access the Readings.
 
 ## 1. Everyone gets RStudio and R installed (seek Instructor help)
+<p>
 The links to download RStudio and R are provided in the Syllabus (Section 1.5 Software). If you are still having problems downloading this software please seek help from Dr. Hurford, Jake, or Joany. If you are working on a lab computer these software will already be installed and you can skip this step.
+</p>
 
 ## 2. Some R and programming basics
 
