@@ -434,3 +434,9 @@ read.csv('P_Data.csv')
   #1d. Give the corrected version of the code.
   
   #2. What is the hardest thing, for you, about reading code or learning to code?
+  
+  #3. Look at 'TwoCaribouHerdExample.R'.
+  #3a. On what lines is there a user-defined function DEFINED?
+  #3b. What is the name of the user-defined function?
+  #3c. Give one of the lines where a user-defined function is CALLED.
+  #3d. Name a built-in function that is used.
