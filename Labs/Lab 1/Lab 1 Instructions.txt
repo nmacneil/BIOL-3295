@@ -21,6 +21,8 @@ In this section we will cover:
 - Practice some basic commands: load a package, load in data, basic algebra, built-in functions, user-defined functions, make a for loop, create and manipulate a dataframe.
 - Some common errors and how to fix code errors.
 
+You should now open the file IntroToR.R in RStudio. This file contains the instructions for what you are to hand in.
+
 ## 3. Everyone gets Github Desktop installed (Instructor demo/help)
 - See also 'Working with the class Github repository.pdf'.
 - Practice both 'Download ZIP' and 'open in Desktop'.
