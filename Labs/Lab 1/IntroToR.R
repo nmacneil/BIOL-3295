@@ -16,7 +16,7 @@
 # commands.
 # -'Source' will run the script with each of the lines run sequentinally.
 
-# 1. R remembers only the last value of a parameter, and it remembers that
+# 1. R remembers only the last value of an object, and it remembers that
 # until you clear it.
 #####
 # Run these two lines only:
@@ -76,7 +76,7 @@ headache(MyData)
 # is to copy your error message into a search engine - it's common to find that
 # others may have already had and solved the same problem you are having.
 
-#... on the otherhand tail() is a built-in function that shows the last 6 lines
+#... on the other hand tail() is a built-in function that shows the last 6 lines
 # of your data
 tail(MyData)
 
@@ -232,32 +232,67 @@ DataData$Thursday <- c(0.1,0.2,0.3,0.4)
 DataData
 
 # What is the point of all this? Sometimes you might load in data as a .csv file
-# as we did above with
+# as we did above with PA_Data above, but other times you might make your own
+# data by running a simulation (we will see this below) or you might want to add
+# a column to the data that you loaded in. For example, lets go back to
+head(MyData)
+# ... I ask for just the first 6 rows because it is much too much to look at all
+# the data at once
+MyData
+# So let's just do the first 6 rows:
+head(MyData)
+# Let me add a random number in a new 5th column
+# In this case it is helpful to define a name for the number of columns in
+# MyData. It gets called 'numcols'.
+numcols <-length(MyData[,1])
+MyData$RAND_NUM <- sample(seq(1:numcols),numcols)
+head(MyData)
 
+# I can access the value of my dataframe at a particular row (r1) and column (c1)
+# like this:
+r1<-1
+c1<-1
+MyData[r1,c1]
+# Try changing r1 and c1 to access different data. How many columns in MyData?
+# Why doesn't this work?
+MyData[1,8]
 
+# What if we did round brackets by mistake?
+MyData(1,8)
+#... the error message indicates that round brackets are for functions, so now R
+# is confused because there is no built-in or user defined function called MyData.
+
+# 7. For loops
 ###########
-# FOR LOOPS
-###########
-#In this course, you will frequently solve equations for a range of values. One way to do this in R is with for loops. Two other ways of doing this are with built in functions like sapply and tapply or by creating your own function. I encourage you to look into the 'apply' functions. Below we will go over how to create your own function. But first, let's look at creating for loops.
-#First step: you want to create an empty data frame to place your data. I will create an empty data frame called 'Data_Loop'
+# Often in class we want recursively evaluate a function. For example, we want to use
+# the value generated after one iteration of the loop for the next go around.
+
+# First we need to pre-allocate our data structure: we give it a name so that we can
+# add to it later. Right now it's just empty.
 Data_Loop <-NULL
-#I would like to find the solution to the equation i + j for i = 0.5 and j = 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9. 1.0
-#set the i parameter value
-i <- 0.5
-#Start your loop. You will be looping over values of j between 0.1 and 1 by steps of 0.1. The loop is applied to things inside the squiggly brackets { }
-for(j in seq(0.1,1,0.1)){
 
-#this is the equation you will be calculating for every value of j
-loop_1 <- i + j
+# We would like make a sequence where each prior result is doubled
+# and with a starting value of 1.
+
+# Outside the loop we define the start value.
+loop_1 <-1
+
+# The loop will be run for 7 iterations number 1 to 7. This is stated as
+# seq(1:7) and 'j' will be the name of the iteration number. Inside the () brackets
+# is the information about for what different values to run the loop for (here, it's 1 to 7)
+# After giving the name ('j') and the values of j to loop across (1 to 7 by 1) then
+# inside {} are a list of commands. Therefore, you might want to select the entire
+# code block starting at for() and ending at } and run it all together.
+for(j in seq(1:7)){
+
+#this states the new value of loop_1 is double the old value
+loop_1 <- loop_1*2
 
 #Put your data in a data frame. Don't forget to enclose this within the loop!
 #Here I am telling R to place the results of our loop - 'loop_1' in a data frame along with the values of j.
-#The data frame has two columns; "Parameterj" and "Result". The data to put in these columns come after the =. In column "Parameterj" we are placing j values (this is the parameter we are looping over) and in column "Result" we are placing the values of loop_1 evaluated for different values of j.
+#The data frame has two columns; "iteration_number" and "Result". The data to put in these columns come after the =. In column "iteration_number" we are placing j values (this is the parameter we are looping over) and in column "Result" we are placing the values of loop_1 evaluated for different values of j.
 #Here we use rbind to add an additional row of data for every iteration of j. If we did not do this, our data frame would only have one row. When populating a data frame within a loop be sure to use rbind (or cbind - look it up!)
-Data_Loop <- rbind(Data_Loop, data.frame(Parameterj=j, Result=loop_1))
-
-#print the j value so you can track progress. Good for longer loops
-print(j)
+Data_Loop <- rbind(Data_Loop, data.frame(iteration_number=j, Result=loop_1))
 #Close the loop
 }
 
@@ -267,113 +302,135 @@ Data_Loop
 #Give me the value of Data_Loop at row = 3 in column = 2
 Data_Loop[3,2]
 
-#Or give me the first column of Data_Loop  where j is the name of the first column of the data frame Data_Loop 
-Data_Loop$Parameterj
+#Or give me the second column of Data_Loop  where Result is the name of the second column of the data frame Data_Loop 
+Data_Loop$Result
 
+# Loops are used to do calculations where the next calculated value depends on the previous
+# one.
 
+# 8. User defined functions
 ############
-# FUNCTIONS
-############
-#Finally, let's look at how to create your own functions. Why would you want to do this? R may not have a built-in function that does what you want to do or maybe you want to apply a certain function frequently in your analysis.
-#This is my function. It is called FOO. It has two parameters s and q.  Here I define my function to solve a very simple equation - as above - but the equation can be as complex as you like.
-#The first part defines the parameters of the function (s,q) and the function itself is enclosed in {}
-#function is the function to create a function! Say that one 10 times fast!
+# Let's look at how to create your own functions. Why would you want to do this?
+# R may not have a built-in function that does what you want to do or maybe
+# you want to apply a certain function frequently in your analysis. Is there
+# already a function called FOO?
+FOO(1,1)
+#.. no, we get an error saying there isn't.
+
+# Let's make one. This is my function called FOO. It has two parameters s and q.
+# Here I define my function to solve a very simple equation but the equation
+# can be as complex as you like.
+# The first part defines the parameters of the function (s,q) and
+# the function itself is enclosed in {} (so that you can define more than
+# line of code to comprise your function).
+# Observe that function() is the function to create a function!
 FOO <- function(s,q){
-	(s + q)}
+	(2*s + q)}
 
 #When you call the function, you have to give it a value for s and q
-#This line says compute FOO for s = 1 and q = 1
-FOO(1,1)
+#This line says compute FOO for s = 1 and q = 2
+FOO(1,2)
+#How about
+FOO(2,1)
+#... why is FOO(1,2) not equal to FOO(2,1)?
+# Why do these give errors?
+FOO(1)
+FOO(1,1,1)
 
-#Let's use this function to create a table as above
-Data_Loop2 <-NULL
-#Here I am iterating the function FOO over s = 0.5 for q between 0.1 to 1 by steps of 0.1...just as above
-Data_Loop2 <- data.frame(Parameterq=seq(0.1,1,0.1), Result=FOO(0.5,seq(0.1,1,0.1)))
-Data_Loop2
+# 9. Loading packages to access more built in functions
+##############
+# Many times, however, someone else has already written a function to do what you
+# want to do.
+# How many days from Jan 1 to Oct 31? This is called the julian day and the function
+# to figure this out is part of the chron package.
 
+# Let's try this:
+julian(10,31,1970)
+#... did you get there there is no function called julian?
 
-#############################################################################
-# LAB #1 - useful code
-#############################################################################
-#For question 1 of the lab you are to reproduce the figures from the textbook.
+# We need to install the chron package:
+install.packages("chron")
+# ... but you can also do this via the "Packages" tab in the right panel.
 
-#Here I reproduce Figure P1.2 for three different slope (b) values
-#This is my linear function f where b is the slope and c is the intercept (i.e. value of f when x = 0)
-f <- b*x + c
+# Now we have installed "chron", but we also need to tell R we would like to
+# use it right now. Scroll through your package list. Is chron checked? No?
+# run the command below:
+library("chron")
+#... now is it checked?
 
-#I want to plot f for c = 1, x = 0 to 10, and b = 1, 5, 10
-# For your assignment, you will need to try different parameter values (i.e., b and c values) to find the ones that most closely match the textbook figures
-#Create a blank data frame
-Linear <- NULL
-#set the c parameter value
-c <- 1
-#create a vector of x values
-x<-seq(0,10,.1)
+# Now let's use the julian function
+julian(1,1,1970)
+julian(10,31,1970)
 
-######
-# This sets the label x as the header of your dataframe (named 'Linear') and then places the numerical values of x into the column of the dataframe. At the moment, Linear has just one column of data
-Linear <- data.frame(x=x)
+# 10. Finding your mistakes
+#########
+# a) R is case sensitive and spelling matters. These will give errors:
+Read.csv('PA_Data.csv')
+read.csv('P_Data.csv')
+# In the first instance there is no function called 'Read.csv()' defined just
+# 'read.csv()'. In the second instance, there is no file 'P_Data.csv' just
+# 'PA_Data.csv'. R isn't going to 'guess' what you meant to say!
 
-#Start your loop. You will be looping over values of values of b = 1, 5, and 10. The loop is applied to things inside the squiggly brackets { }.
-for(b in c(1,5,10)){
-#Below is the equation you will be calculating for every value of b. On the first iteration of the loop b is 1.
-#Note that since x is a vector (i.e., it is not just a single number, but rather x consists of multiple entries), then f is also a vector where each value of f corresponds to the value of x at the same position.
-f <- b*x + c
+# b) R has a huge user community. You can most likely find solutions to any problems
+# you have by typing your question about R or you error message into a search engine.
 
-#Now we add the results of our calculations to our data frame, Linear, using the function cbind to 'bind' the existing columns of Linear with columns containing the new results from this iteration of the loop. The size of the dataframe grows with each iteration of the loop. After the first iteration, Linear consists of 3 colums, x, b, and f where all the b values are 1. After the second iteration of the loop, Linear consists of 5 columns: x, b, f, b, f, where for the second occurance of b all the b values are 5 and the second occurance of f corresponds to the values of f when b is 5.
-Linear <- cbind(Linear, data.frame(b=b, f=f))
+# c) Try R help (help() or ?topic or ??topic where topic is what you want to learn about.
 
-#print the b value so you can track progress.
-print(b)
-#Close the loop
-}
-
-#Now lets take a look at the dataframe 'Linear' that we have created.
-Linear
-#The dataframe has 101 rows for each different value of x and 7 columns.
-#To extract an entire column of the dataframe, for example column 1 of 'Linear', we can type Linear[,1]
-
-
-#Now plot your linear function for different slopes
-par(mfrow=c(1,1))
-#Base plot with straight black line. The x-axis values are taken from the dataframe 'Linear' and are the x values for b = 1. The y-axis values are taken from the data frame 'Linear' and are the f values for b =1. We will make the plot for y-axis 0 to 110.
-plot(Linear[,1],Linear[,3], xlab="x", ylab="f(x)", type="l", ylim=c(0,110), cex.lab=1.5, cex.axis=1.5, lwd=2)
-#Add a line where the slope is 5 (ie b = 5) and make this line dashed
-lines(Linear[,1],Linear[,5], lty="dashed", lwd=2)
-#Add a line where the slope is 10 (ie b = 10) and make this line dotted
-lines(Linear[,1],Linear[,7], lty="dotted", lwd=2)
-#Add a legend in the top-left corner
-legend("topleft", legend=c("b=1", "b=5", "b=10"), lty=c("solid","dashed","dotted"), lwd=2, cex=1.5)
-#Beauty!
-
-####################################################################
-#Iterating over the different values of b was a tidy and efficient way to make
-#graphs of the SAME function with different parameter values, but for question 3 you are required
-#to plot several different functions: constant, linear, and quadratic on the same axis. In this case
-#it may be easier to work without a loop because the equations are different on each iteration.
-####################################################################
-#The equation we are using is 
-g <- x*sin(x)
-#remember R recalls the last values of x which we used above. If you want new x values for this function, you need to assign them here
-#sin is a built-in function in R
-#We want to calculate x for values of 0 to 10 (which is consistent with how x is already defined above).
-
-#Type in the equations for your approximations below:
-#g0 <- write the equation here and uncomment
-#g1<- write the equation here
-#g2<- write the equation here
-
-#Plot the function g
-par(mfrow=c(1,1))
-plot(x,g, xlab="x", ylab="g(x)", type="l", cex.lab=1.5, cex.axis=1.5, lwd=2)
-#Add your approximation lines here by using the 'lines' function
-#lines(x,g0,lty="dashed", lwd=2)
-#Some basic things to remember
-# 1) anything that comes after a # is a comment that will not be computed by R. This is a good way to insert comments in your code. For assignments that require you to hand in code, we expect you to comment your code so that we can follow your procedures - ie make your code and results easily reproducible.
-# 2) R is case sensitive. If your code is not running first check to see if there are any spelling mistakes or case mistakes.
-# 3) R has a huge user community. You can most likely find solutions to any problems you have by typing your question about R in google. We expect you to first try to solve your own problems by troubleshooting using google or R help (help() or ?topic or ??topic where topic is what you want to learn about). 
-# 4) R has a large number of built-in functions. For example read.csv is a function to read .csv files into R. Sometimes you will have to download R packages to access additional functions. For example the package 'lattice' has nice functions to create 3D plots. To download this package you can use the function install.packages() or you can use the menu 'Packages & Data' - Get list and scroll to the 'lattice' package. Once you have downloaded the package, to use it you must open the package by typing 'library(lattice)'. It is useful to list the libraries you plan to use in your code at the top of your code file.
-# 5) Always type your code in some kind of text editor like Rstudio or notepad. R for Mac has a decent built-in text editor. This will allow you to reproduce your analysis easily.
-# 6) To run your code you can a) copy and paste from your text editor to the R console, b) highlight your code and type apple-return on macs or shift-return on pc
-# 7) you can create an object named pretty much anything - a, b, HgW, HJ6, Data1, etc. R will overwrite values of your objects as you use them. So if you want to use an object throughout, it is best not to name any new objects with the same name. ie only have one object named a, one named b, etc.
-
+# d) Another common error is forgetting a closing bracket or having too may closing
+# brackets. Run your cursor over these - it can help with clues.
+(1+1))
+(2+1
+  #... the + in your console means R is waiting for the rest of the code block.
+  
+# e) If a script is calling a missing function, it could be that the package isn't
+# loaded.
+  
+# f) The error messages might give you clues about what is wrong, but it can take
+# some time to get used to these.
+  
+# g) Is the problem specific to your function? Are you providing too many or the
+  # wrong kind of arguments to your function.
+  read.csv(1)
+#... the argument of read.csv should be a file name not a number so we get an error.
+  # Try using ?read.csv or help(read.csv)
+  
+# h) "Step and Query". There is an error in your code. Particularly, if you are running
+  # the entire script via "source()", your first job is to find the line of code that
+  # generates the error. Run the first line of code and then query the result in your
+  # console. Is it what you expected? No? Then fix it! Yes, try the next line and query
+  # Is it what you expected. Step through everything sequentially making sure everything
+  # is going to plan.
+  
+# i) "Source and print". Another version of h) is to print messages to your console to
+  # get updates on what the values of your variables are at different points in the script.
+  # Remember that the code runs from top to bottom.
+  r<-1
+  print(r)
+  r<-3
+  print(r)
+  r<-2
+  print(r)
+  print('We made to line 413!')
+  # This is another way to track what is happening.
+  
+  # 11. Writing your own code
+  # a) A lot of the time, I copy and paste parts of old codes that I've written and
+  # modify them for the new task. I almost never remember how to add a legend to
+  # a plot, so I just look for some old code that I have where I have a legend on
+  # my plot and copy it.
+  
+  # b) For future labs, you might want to refer back to this file to remember how to,
+  # for example, make a plot. That's perfectly fine!
+  
+  # c) Alternatively, the R help files and vignettes sometimes have examples. I will copy and paste
+  # the example into my script and check that it runs, and then just change one piece
+  # at a time until I've changed the example, into what I wanted to do.
+  
+  ####### LAB 1.
+  # To hand in for next week:
+  #1a. Give three different examples of R code that won't work.
+  #1b. In each of the three instances, write the error messages that are generated.
+  #1c. Describe why the codes won't work.
+  #1d. Give the corrected version of the code.
+  
+  #2. What is the hardest thing, for you, about reading code or learning to code?
