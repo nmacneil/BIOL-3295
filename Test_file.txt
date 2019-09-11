@@ -1,1 +1,2 @@
-In class, I explained about geometric growth.
+1. In class, I explained about geometric growth.
+2. Then, I explained about exponential growth.
