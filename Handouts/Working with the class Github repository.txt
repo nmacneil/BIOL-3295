@@ -1,0 +1,34 @@
+1. Install Github Desktop https://desktop.github.com/ (Note do not do with over the @memorial-guest wifi as this may cause problems)
+
+
+
+2. Go to the class git repository https://github.com/ahurford/BIOL-3295
+3. Click on the green ‘Clone or download’ button
+
+
+4. Click the left option ‘Open in Desktop’ (if you have not installed Github Desktop as per step 1, then see * below).
+
+
+
+
+5. My computer then gives a ‘Launch in Application’ window and I select ‘GitHub Desktop’ and ‘Open link’, but you may get something different depending on your computer.
+6. My Github Desktop now displays the following screen:
+
+This is because I deleted my BIOL-3295 folder for the purpose of this example. If you haven’t downloaded before you’ll likely have a different screen.
+* “Locate…” means the software suspects that I may have moved the “BIOL-3295” folder from my Desktop (where this folder was last seen), and asks if I would like to guide it to the new directory where I moved it. In my case I put the file in the trash so I could recreate a more realistic help file, so it won’t help to provide a location.
+* “Clone Again” is the option I will choose. This will copy all the folders from the Github repository to a folder on my Desktop (I believe I had previously specified Desktop as the location that I wanted these files to appear in).
+
+7. After I click “Clone Again” a folder “BIOL-3295” appears on my Desktop and this folder contains all the latest files for the class.
+
+
+8. The usefulness of this will become apparent later, as it is very easy to get the most recent course material using Github Desktop. With the current repository selected as “BIOL-3295” and the Current Branch as “master”, click on “Fetch origin” and any new files will be downloaded to your BIOL-3295 folder.
+
+
+9. The final step is to link your Github account to your Github Desktop. Sign-up for Github here: https://github.com/join. Next in the “Github Desktop” menu, select “Preferences”.
+
+10. Next, you want to sign in to your github.com account using your newly created credentials:
+
+I’m not certain that at this stage of the class, this is necessary, but for Labs 5 and 8 you will need to submit your own files to the class repository, and you will need to be logged in for this.
+
+
+
