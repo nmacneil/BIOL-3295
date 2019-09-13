@@ -45,9 +45,7 @@ boxplot(popn.est~season, ylab = "population estimate", col = "dodgerblue", main 
 vioplot(results.summer$t, results.winter$t, names=c("summer", "winter"), col="gold", main = "violin plot", xlab = "season")
 beeswarm(popn.est~season, pch=16, main = "beeswarm plot")
 
-
-
-
 # get 95% confidence interval
-boot.ci(results.winter, type="bca")
 boot.ci(results.summer, type="bca")
+boot.ci(results.winter, type="bca")
+
