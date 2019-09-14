@@ -8,7 +8,7 @@ library(boot)
 
 # Create data
 summer.perunit <-rpois(100,35)
-winter.perunit <-rpois(100,35)
+winter.perunit <-rpois(100,33)
 data <-data.frame(summer.perunit, winter.perunit)
 
 # graph variability in counts as a histogram
@@ -26,10 +26,10 @@ abundance.est <- function(K,data,indices) {
 
 # bootstrapping with 100 replications
 results.winter <- boot(data=winter.perunit, statistic=abundance.est,
-                       R=100, K=100)
+                       R=100, K=1000)
 # bootstrapping with 100 replications
 results.summer <- boot(data=summer.perunit, statistic=abundance.est,
-                       R=100, K=100)
+                       R=100, K=1000)
 
 # view results of the 100 replicated population abundance calculations
 # for winter
