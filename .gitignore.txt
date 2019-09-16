@@ -2,6 +2,12 @@
 # Created by https://www.gitignore.io/api/r,macos,windows
 # Edit at https://www.gitignore.io/?templates=r,macos,windows
 
+### Latex ###
+.aux
+.log
+.out
+.synctex.gz
+
 ### macOS ###
 # General
 .DS_Store
