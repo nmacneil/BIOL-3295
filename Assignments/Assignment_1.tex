@@ -1,0 +1,69 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+							% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{placeins}
+
+%\date{}							% Activate to display a given date or no date
+
+
+
+\begin{document}
+\textbf{BIOL 3295 Fall 2019}
+
+\textbf{Assignment 1 due Tuesday Oct 1, 12pm}
+
+The questions in this section refer to \cite{Sacchi}. These questions ask you to perform calculations to gain a thorough understanding of the paper's results. These calculations may suggest some inconsistencies/lack of information in \cite{Sacchi}, but overall these are minor relative to the valuable contributions this paper makes towards quantifying feral pigeon abundance in Milan and the factors affecting this abundance. 
+
+\begin{description}
+\item[1.1] Provide one sentence to explain why all counts were multiplied by 3.25.
+\item[1.2] Is the `No. of birds' reported in Table 1: (a) the number of birds counted; or (b) the number of birds counted multiplied by 3.25?
+\item[1.3] In this study, what is the estimated size of the pigeon population in Milan (excluding farmstead flocks)?
+\item[1.4] What is the sum of the number of birds across each Sector (see Table 1)?*
+\item[1.5] What is the sum of the number of birds across each District (see Table 2)? 
+\item[1.6] Set $x = 1$ and evaluate $y$ as given in the Figure 2. Compare the result to the estimated `No. of birds' in Sector A from Table 1.
+\item[1.7] Set $x$ to each of 2, 3, 4 and 5, evaluate $y$ each time, and compare to Table 1.**
+\item[1.8] Consult Figure 6(a). From the graph, give a numerical estimate for the percentage of buildings constructed before 1936 for $E_N, D_N, C_N, B_N, A_N, A_S, B_S, C_S, D_S, E_S$ where $A_N$ indicates Sector A in the northern part of the north-south transect and $A_S$ indicates Sector A in the southern part of the north-south transect.
+\item[1.9] We will assume each sector contains the same number for buildings per km$^2$. The area of each sector is given in Table 1. Let the area of Sector $x$ be denoted as $a_x$, such that $a_A = 2.9$ km$^2$, and so forth for $x \in \{A, B, C, D, E\}$.  We will calculate the average percentage of buildings constructed before 1936 in Milan as a weighted average. Calculate your weighted average, $\bar{B}$, as:
+\[\bar{B} = \frac{a_A}{A_M}\frac{(A_N+A_S)}{2}+\frac{a_B}{A_M}\frac{(B_N+B_S)}{2}+\frac{a_C}{A_M}\frac{(C_N+C_S)}{2}+\frac{a_D}{A_M}\frac{(D_N+D_S)}{2}+\frac{a_E}{A_M}\frac{(E_N+E_S)}{2}\]
+where $A_M = a_A + a_B + a_C + a_D + a_E$ is the area of Milan. 
+\item[1.10] Use the formula given in Figure 5, and your calculated average percentage of buildings constructed before 1936 for Milan, $\bar{B}$, to predict the average number of pigeons per zone in Milan.***
+\item[1.11] Divide your answer from Question 1.3 by 26 zones, and compare the result to your estimate of the number of pigeons per zone from Question 1.10.
+\end{description}
+
+* This value does not match the answer to question 1.3.
+
+** The authors do not explain how they have coded A, B, C, D and E into $x$ values. The article would be improved if this information were provided.
+
+*** Note that the y-axis of Figure 5 is unclear. The article would be improved with a more descriptive y-axis. The article states that Milan was divided into 26 zones (combinations of Sectors and Districts) and Figure 5 appears to contain around 26 data points.
+
+\vspace{2cm}
+
+\begin{description}
+\item[2.1] Evolution is a change in the relative abundance of genes. Eco-evolutionary dynamics emphasizes that not only does ecology affect evolution, but, in turn, evolution affects ecology. Write 1 paragraph explaining how \cite{Yoshida} illustrates an eco-evolutionary dynamic.
+\item 
+\end{description}
+
+In class, we estimated a population abundance and 95$\%$ confidence interval for a landscape consisting of 10 sampling units of which 3 were sampled yielding counts of 40, 30, and 20. Later the survey group let us know that they had also sampled another unit, and here they counted 32 individuals. Use this new data, combined with the original data (a total of 4 sampling units counted), to:
+
+\begin{description}
+\item[3.1] Calculate the population abundance.
+\item[3.2] Calculate the 95$\%$ confidence interval for population abundance.
+\item[3.3] Calculate the number of samples that would be needed to achieve a 95$\%$ confidence interval with a halfwidth of 50 individuals.
+\item[3.4] Calculate the number of samples that would be needed to achieve a 75$\%$ confidence interval with a halfwidth of 50.****
+\end{description}
+**** Note that in \texttt{R} you can calculate $Z_{1-\frac{\alpha}{2}}$ as \texttt{>qnorm(1-$\frac{\alpha}{2}$)}, i.e., for a 95$\%$ confidence interval $\alpha = 0.05$, so $1-\frac{0.05}{2} = 0.975$ and \texttt{>qnorm(0.975)=1.96}. For a 75$\%$ confidence interval what is $\alpha$? What is $1-\frac{\alpha}{2}$?
+
+\begin{thebibliography}{10}
+\bibitem[Sacchi et al., 2002]{Sacchi} Sacchi, R., Gentilli, A., Razzetti, E., Barbieri, F., 2002. Effects of building features on density and flock distribution of feral pigeons Columba livia var. domestica in an urban environment. Can. J. Zool. 80, 48?54. \url{https://doi.org/10.1139/z01-202}
+\bibitem[Yoshida et al., 2003]{Yoshida} Yoshida, T., L.E. Jones, S. P. Ellner, G. F. Fussman, and N. G. Hairston, Jr. 2003. Rapid evolution drives ecological dynamics in a predator-prey system. Nature 424, 303-306.
+\end{thebibliography}
+
+
+
+\end{document}  
