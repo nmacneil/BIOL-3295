@@ -1,6 +1,6 @@
 # How to enter your duck data
 
-You will save the data in a comma-separated value (CSV) file, which is a plain text format for spreadsheets. CSV files can be viewed and edited with many applications (e.g. Microsoft Excel, OpenOffice Calc, Google Sheets, R). 
+You will add your data to the class comma-separated value (CSV) file, which is a plain text format for spreadsheets. CSV files can be viewed and edited with many applications (e.g. Microsoft Excel, OpenOffice Calc, Google Sheets, R). 
 
 Depending on your Operating System, when you double click on the file, it will be opened by the default application, like Microsoft Excel. If the data is not displaying correctly, you can adjust the width of the columns. Next, enter the data in the row that corresponds to your name. Include the time of your observation (e.g. 2pm) and the number of ducks that you counted. If you have any additional information, you can include it under the "Notes" column. 
 
