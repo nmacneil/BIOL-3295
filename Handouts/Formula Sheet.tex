@@ -1,0 +1,182 @@
+\documentclass[11pt, oneside, twocolumn]{article} 	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage[margin=2cm]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+\begin{document}
+\section*{BIOL 3295: Formula sheet}
+
+\underline{Exponents}
+\\
+\\
+$x^m \times x^n = x^{m+n}$
+
+$x^0 = 1$
+
+$x^1 = x$
+\\
+\\
+
+\underline{Logarithms}
+\\
+\\
+$\ln(xy) = \ln(x) + \ln(y)$
+
+$\ln(x^t) = t \times \ln(x)$
+
+$\ln(e^x) = x$
+
+$\ln(e^1) = 1$
+
+$e = 2.71828$
+\\
+\\
+
+\underline{Geometric growth}
+\\
+\\
+$N_{t+1} = N_t + bN_t - dN_t$
+
+$N_{t+1} = \lambda N_t$
+\\
+\\
+
+\underline{Exponential growth}
+\\
+\\
+$\frac{dN(t)}{dt} = (b - d)N(t)$
+
+$\frac{dN(t)}{dt} = rN(t)$
+\\
+\\
+
+
+
+\underline{Logistic growth - continuous time}
+\\
+\\
+$\frac{dN(t)}{dt} = r N(t)\left(1-\frac{N(t)}{K} \right)$
+\\
+\\
+
+\underline{Logistic growth - discrete time}
+\\
+\\
+$N_{t+1} = N_t + \lambda N_t\left(1 - \frac{N_t}{K} \right)$
+\\
+\\
+\\
+\\
+
+\underline{Ricker model}
+\\
+\\
+$N_{t+1} = N_te^{r\left(1 - \frac{N_t}{K}\right)}$
+\\
+\\
+
+
+\underline{Beverton-Holt model}
+\\
+\\
+$N_{t+1} = \frac{\lambda N_t}{1 + \frac{\lambda -1}{K}N_t}$
+\\
+\\
+\\
+
+
+\underline{Allele frequency}
+\\
+\\
+$ \frac{dp(t)}{dt} = (r_A - r_a)p(t)(1-p(t))$ \\
+$  \frac{dp(t)}{dt} = sp(t)(1-p(t))$
+\\
+\\
+
+\underline{per capita growth rate}
+\\
+\\
+$ \frac{1}{N(t)} \frac{dN(t)}{dt}$,\\
+$ \mbox{Ln}\left(\frac{N_{t+1}}{N_t}\right)$ or $\frac{N_{t+1}}{N_t}$
+\\
+\\
+
+\underline{Eigenvalues for a $2 \times 2$ projection matrix}
+\\
+\\
+$\lambda_1 = \frac{a_{11} + a_{22} + \sqrt{(a_{11} + a_{22})^2 - 4(a_{11}a_{22}-a_{12}a_{21})}}{2}$,\\
+$\lambda_2 = \frac{a_{11} + a_{22} - \sqrt{(a_{11} + a_{22})^2 - 4(a_{11}a_{22}-a_{12}a_{21})}}{2}$
+\\
+\\
+
+\underline{Euler-Lotka equation}
+\\
+\\
+$\sum_{x=\alpha}^\omega m_x l_x dx$
+\\
+\\
+\underline{Metapopulation models}
+
+\[
+\begin{array}{ll}
+\frac{dp}{dt} = mp(1-p) - ep & \mbox{Levins (1969)}\\
+\frac{dp}{dt} = mp(1-p) - ep(1-p) & \mbox{Hanski (1982)}\\
+\frac{dp}{dt} = mp - ep(1-p) & \mbox{Gotelli (1991)}\\
+\end{array}
+\]
+
+\underline{Diffusion coefficient}
+\\
+\\
+$D = \frac{2 M_D(t)^2}{\pi t}$
+\\
+\\
+
+\underline{Asymptotic spread rate}
+\\
+\\
+$V_F = \sqrt{4 \alpha D}$
+\\
+\\
+
+\underline{Reaction diffusion - 1 spatial dimension}
+\\
+\\
+$\frac{\partial N}{\partial t} = f(N) + D \frac{\partial^2N}{\partial x^2}$
+\\
+\\
+
+\underline{Reaction diffusion - 2 spatial dimensions}
+\\
+\\
+$\frac{\partial N}{\partial t} = f(N) + D\left[ \frac{\partial^2N}{\partial x^2}+ \frac{\partial^2N}{\partial y^2} \right]$
+
+\underline{Nash equilibrium}
+\\
+\\
+A strategy $\pi^*$ is a Nash equilibrium if,
+
+\[W(\pi^*, \pi^*) \geq W(\pi, \pi^*) \quad \mbox{for all} \quad {\pi \neq \pi^*} \]
+
+where $W(x,y)$ is the fitness of a focal individual with the strategy $x$ against an opponent with strategy $y$.
+
+\underline{Evolutionarily stable strategy}
+\\
+\\
+A strategy $\pi^*$ is an evolutionarily stable strategy if,
+%
+\[W(\pi^*, \pi^*) > W(\pi, \pi^*) \quad \mbox{for all} \quad {\pi \neq \pi^*} \]
+%
+or
+%
+\[W(\pi^*,\pi^*) = W(\pi, \pi^*) \quad \mbox{and}\]
+\[W(\pi^*, \pi) > W(\pi,\pi) \quad \mbox{for all} \quad \pi \neq \pi^* \]
+
+where $W(x,y)$ is the fitness of a focal individual with the strategy $x$ against an opponent with strategy $y$.
+
+
+\end{document}  
