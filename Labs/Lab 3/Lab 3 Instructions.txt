@@ -1,0 +1,23 @@
+# Lab 3. Coding numerical solutions to population models.
+
+You should hand in your write up of Lab 3 at the start of next week's lab: Wednesday Oct 2 at 2pm.
+
+The goals for Lab 3 are:
+1. To practice submitting data to Github via a Pull request.
+2. To solve population models using a computer.
+
+## 1. Practice submitting a Pull Request.
+You are to submit a .csv file, to the class Github repository. The instructions to do this are found in the document "Submitting data to the Github repository.pdf" in the "Handouts folder". The file you submit must have the following features:
+
+a) Your name (you may work in pairs if you would like);
+b) Column headings; 
+c) At least 1 row of made-up data;
+d) In .csv format;
+e) Submitted to the the "Test submissions" folder (in lab directory)
+
+Part of your grade for this lab will be based on completing this submission.
+
+## 2. To solve population models using a computer.
+Work through the file Simulating_Population_Models.R (open it in RStudio). This file contains questions that you should complete and hand in for next week.
+
+
