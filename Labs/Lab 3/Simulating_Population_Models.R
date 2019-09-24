@@ -21,10 +21,12 @@
 
 # This lab involves practicing using computers to solve these population
 # models (i.e. calculate the future population size). For geometric and exponential
-# growth, it is quite easy to calculated N(t) or N_t for any value of t, given
+# growth, it is quite easy to calculate N(t) or N_t for any value of t, given
 # initial population size information, so these computational methods are
 # over-kill for these simple models, however, the skills we develop will be useful
 # for more complicated models of population growth that we will see later in class.
+
+require(deSolve)
 
 #------------
 ## 1. CALCULATING FUTURE POPULATION SIZE USING LISTS AND FOR-LOOPS
@@ -283,3 +285,62 @@ lines(ProtectionIsland$time, ProtectionIsland$Popn.Size, lty=2)
 # Next, I would like YOU to add a legend to you the figure
 legend("topleft", legend=c("Thing 1", "Thing 2", "Thing 3"), lwd=c(2,2,NA), lty = c(1,2,NA), pch = c(NA,NA,1), box.lwd = 0)
 
+## 3. SOLVING DIFFERENTIAL EQUATIONS
+# We can also solve the equation dN/dt = r*N using the function ode() from the deSolve package
+# that we loaded in at the beginning of this code. Note that dN/dt describes the change in the population
+# size, N, and by "solving" the dN/dt equation we will be finding the population size, N, for different
+# times.
+
+# Parameters
+b = 1
+d = 0.99
+# Initial population size
+N0 = 11
+# The times we want to calculate the solutions for.
+times = seq(0,10,.1)
+# The function that describes dN/dt. This function must
+# return a list.
+ExpGrowth<-function(y,t,p){
+  dy = 0.01*y
+  return(list(dy))
+}
+
+# Let's see what arguments are required for the ode() function.
+?ode
+out = ode(N0,times,ExpGrowth,p=NULL, method = "ode45")
+# Note that the third argument of ExpGrowth is p, therefore, we need
+# to tell R which of the numbers is b and which is d: On the left hand
+# side of the ='s we are specifying the name "b" and on the right hand
+# side we are supplying the numerical value b = 0.9.
+c(b=b,d=d)
+head(out)
+
+# Let's plot our output (the ode helpful gives examples of how to do this too)
+plot(out[,1], out[,2], xlab = "time", ylab = "population size", typ="l")
+lines(times, N0*exp((b-d)*times), col="red")
+
+# We note that geometric growth (discrete time) gives very close predictions to
+# exponential growth when exp(r) = lambda.
+# Now let's test this.
+lambda = exp(0.1)
+
+# Let's slightly modify the old geometric growth function so that
+# lambda can be supplied as an argument without requiring b and d.
+GeoGrowth.lambda = function(Nstart,lambda,tstart,tend){
+  N=NULL
+  Time=NULL
+  N[1]=Nstart
+  Time[1]=tstart
+  for(t in seq(1,tend-tstart,1)){
+    N[t+1] = lambda*N[t]
+    Time[t+1] = tstart+t
+  }
+  Popn.Size = data.frame(time = Time, Popn.Size = N)
+  return(Popn.Size)
+}
+
+DT = GeoGrowth.lambda(N0,lambda,0,10)
+head(DT)
+
+# To add points to an existing plot use:
+points(DT$time, DT$Popn.Size)
