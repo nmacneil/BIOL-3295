@@ -282,4 +282,57 @@ lines(ProtectionIsland$time, ProtectionIsland$Popn.Size, lty=2)
 
 # Next, I would like YOU to add a legend to you the figure
 legend("topleft", legend=c("Thing 1", "Thing 2", "Thing 3"), lwd=c(2,2,NA), lty = c(1,2,NA), pch = c(NA,NA,1), box.lwd = 0)
+# In your lab report provide the figure and write a few sentence figure caption, similar
+# to a figure caption that might appear in a published paper.
 
+#_______
+# 3. Solving the continuous time population model
+
+# The continous time population growth model, we will solve using the desolve
+# package that we loaded in initially.
+
+# Below we define our exponential growth function. This function
+# calcuates dN/dt, the change in population size.
+# t is time, N is the current population size, and p are parameters
+# in this case b and d.
+ExpGrowth <- function(t,N,p){
+  dN = (b - d)*N
+  # Note that the function called by ode() is required to
+  # return a list.
+  return(list(dN))
+}
+
+# Just like the discrete time model we need to provide a starting
+# population size
+N0 = 10
+#... and we need to list the values of time that we want to solve over
+times = seq(0,10,.1)
+# And the values of the parameters.
+b=1.1
+d=0.05
+
+# Let's learn about the ode() function:
+?ode
+
+# We will use the ode() function from the deSolve package to solve the differential
+# equation dN/dt = r*N. Solving the differential equation will allow us to know the
+# values of N, the population size, not just the values of the change in N, dN/dt.
+# the arguments of the ode function are (and the order is critically important):
+# 1) the initial values of the variables. In this case, the initial value of N, the
+# population size. This is N0 = 10
+# 2) the times we want to solve over. This is times = seq(0,100,1).
+# 3) the function that calculates dN/dt and returns the result as a list. This is
+# ExpGrowth()
+# 4) the parameters for the dN/dt function. These are "b" and "d" and we need to
+# label them as b and d (otherwise how will R know which is which) and provide the
+# values (also called b and d).
+
+out = ode(N0,times,ExpGrowth,p=c(b=b,d=d))
+head(out)
+
+# Note that "1" is at the top of column 2. If we want a nicer heading we can execute
+# our command as:
+out = ode(y=c(N=N0),time=times,func=ExpGrowth,p=c(b=b,d=d))
+head(out)
+
+plot(out[,1], out[,2], typ="l", xlab = "time", ylab = "population size", main = "Exponential Growth")
