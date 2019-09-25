@@ -4,13 +4,13 @@
 # This lab will cover using computers to solve a discrete-time population
 # growth model.
 
-# The geometeric population growth model is:
+# The geometric population growth model is:
 
-#   eqn (1): N_{t+1}= lambda*N_t 
+# eqn (1): N_{t+1}= lambda*N_t 
 
 # To find N_{t+1} where t is far into the future, we might have to
 # solve this model multiple times, which is time consuming on paper,
-# but can be completely very quickly on a computer.
+# but can be completed very quickly on a computer.
 
 # Other models of population growth, are continuous time:
 
@@ -187,7 +187,7 @@ GeoGrowth = function(Nstart,b,d,tstart,tend){
 
 GeoGrowth(1,1.5,.3,1,5)
 
-# What do each of the arguments of the user-defined function GeoGrowth called on line 181 correspond to?
+# What do each of the arguments of the user-defined function GeoGrowth called on line 188 correspond to?
 # (i.e, what do the numbers 1, 1.5, .3, 1, and 5 correspond to?)
 
 # The function GeoGrowth is a little different than the code from Section 1.
@@ -311,7 +311,7 @@ ProtectionIsland
 time2 = ProtectionIsland$time+10/12
 print(ProtectionIsland)
 
-# Now lets add the non-seasonal geometeric growth to the plot
+# Now let's add the non-seasonal geometric growth to the plot
 lines(time2, ProtectionIsland$Popn.Size, lty=2)
 # Note: lty=2 is giving us the dashed line
 
@@ -333,7 +333,7 @@ legend("topleft", legend=c("Thing 1", "Thing 2", "Thing 3"), lwd=c(2,2,NA), lty 
 #_______
 # 4. Solving the continuous time population model
 
-# For the continous time population growth model (eqn 2), we will be using the desolve
+# For the continous time population growth model (eqn 2), we will be using the deSolve
 # package that we loaded in initially. By solving the model, we mean that
 # we want to find the population size at any time, N(t) since eqn 2
 # is currently only phrased as a change in population size, dN/dt.
@@ -362,7 +362,7 @@ b = 1
 d = 0.95
 # .. and the initial population size
 N0 = 10
-# ... and times we want to calculate the solutions for:
+# ... and the times we want to calculate the solutions for:
 times = seq(0,50,1)
 
 # We will use the ode() function from the deSolve package to solve the
