@@ -58,7 +58,7 @@ AltLogisticGrowth = function(Nstart,lambda,K,tstart,tend){
 ########
 # Ricker
 ########
-Ricker = function(Nstart,lambda,K,tstart,tend){
+Ricker = function(Nstart,r,K,tstart,tend){
   Result = c(tstart,Nstart)
   N = Nstart
   for(t in seq(tstart+1,tend,1)){
@@ -99,6 +99,36 @@ times = seq(0,50,.1)
 out = ode(N0,times,LogisticGrowth,p=c(r=r,K=K), method = "ode45")
 
 # Make the graph
-plot(out[,1], out[,2], typ="l", xlab = "time, t", ylab = "population size, N(t)")
+par(mfrow=c(2,1), mar=c(4,4,2,2))
+# Panel 1
+plot(out[,1], out[,2], typ="l", xlab = "time, t", ylab = "population size, N(t)", main = "CT logistic growth with r=1")
+
+# Panel 2
+r = -1
+N0 = 80
+# Performing the numerical integration
+out = ode(N0,times,LogisticGrowth,p=c(r=r,K=K), method = "ode45")
+plot(out[,1], out[,2], typ="l", xlab = "time, t", ylab = "population size, N(t)", main = "CT logistic growth with r=-1")
+
+par(mfrow = c(2,2), mar = c(4,4,2,2))
+# Discrete time logistic growth (May)
+# Consider 4 different parameter values
+May = MayLogisticGrowth(0.1, 2.7, 0.6, 0, 30)
+plot(May$time, May$Popn.Size, typ="l", xlab = "time", ylab = "Population Size", main = "lambda = 2.7")
+# Panel 2
+May = MayLogisticGrowth(0.1, 3.4, 0.6, 0, 30)
+plot(May$time, May$Popn.Size, typ="l", xlab = "time", ylab = "Population Size", main = "lambda = 3.4")
+# Panel 3
+May = MayLogisticGrowth(0.1, 3.8, 0.6, 0, 30)
+plot(May$time, May$Popn.Size, typ="l", xlab = "time", ylab = "Population Size", main = "lambda = 3.8")
+# Panel 4
+May = MayLogisticGrowth(0.1, 0.5, 0.6, 0, 30)
+plot(May$time, May$Popn.Size, typ="l", xlab = "time", ylab = "Population Size", main = "lambda = 0.5")
+
+### Ricker population growth
+# Consider 4 different parameter values
+Ricker.output = Ricker(1, 2, 20, 0, 30)
+plot(Ricker.output$time, Ricker.output$Popn.Size, typ="l", xlab = "time", ylab = "Population Size", main = "lambda = 2.7")
+
 
 
