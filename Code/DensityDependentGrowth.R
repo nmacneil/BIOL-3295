@@ -127,7 +127,7 @@ plot(May$time, May$Popn.Size, typ="l", xlab = "time", ylab = "Population Size", 
 
 ### Ricker population growth
 # Consider 4 different parameter values
-Ricker.output = Ricker(1, 2, 20, 0, 30)
+Ricker.output = Ricker(.1, 2, 20, 0, 30)
 plot(Ricker.output$time, Ricker.output$Popn.Size, typ="l", xlab = "time", ylab = "Population Size", main = "lambda = 2.7")
 
 
