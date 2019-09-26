@@ -1,0 +1,16 @@
+# What do BIOL 3295 students find hardest about coding?
+#-------------------
+
+-Remembering what the built-in functions do and the correct syntax to use them
+-Fixing errors
+-Making nice plots
+-Understanding what is going on behind the scenes of built-in functions
+-Daunting to write own code
+-Lack of experience, relative speed of completion
+-Not intuitive, tedious, lack of clarity, and hard to remember
+-Figuring out the path to a file
+-Different coding styles
+-Getting around RStudio
+-Not 'taught' learn by trial and error = slow
+-Learn better through writing own codes
+-Difficult to understand without comments
