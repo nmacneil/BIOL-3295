@@ -3,6 +3,7 @@
 
 # Let's start by removing any variables from our workspace
 rm(list=ls())
+
 # Install the package bbmle. Use the "Packages" tab and click "install"
 # or type install.packages("bbmle") at the Console prompt.
 require(bbmle)
@@ -34,7 +35,6 @@ for(i in seq(1,length(Tribolium$day.1),1)){
   # Columns 6 to 13 are the columns of the data that contain
   # data on population size. There are 7 replicates of the experiment and the data is
   # reformatted so that additional replicates are appended in the rows below.
-  points(time, Tribolium[i,6:13])
   popn = as.numeric(Tribolium[i,6:13])
   Table1 <- rbind(Table1,data.frame(time = time, measured=popn))
 }
@@ -101,6 +101,10 @@ LLBH <- function(lambda, K){
       }}
     # The negative log-likelihood is the negative sum of the log of the probabilities calculated for
     # each observation for this particular lambda and K combination.
+    # All elements of the list R are numbers between 0 and 1 corresponding to each data point.
+    # The log of these numbers is negative number, and the negative sum of the log values for each
+    # data point is a positive number called the negative log likelihood. Mathematically, finding
+    # the maximum likelihood is the same as finding the minimum of the negative log-likelihood.
   Rout=-sum(log(R))}
   else {Rout = 10e10}
   # If you choose to uncomment the print line below, you can see the different lambda and K values that the optimization
@@ -135,6 +139,7 @@ LLGeo <- function(lambda){
   # Make all the calculated probabilities into a list.
   R = rbind(R,R1)}}
     # Calculate the negative log likelihood for all observed data for a particular lambda value.
+    # Each en
   Rout=-sum(log(R))}
   else
   {Rout = 10e6}
@@ -192,7 +197,53 @@ lines(times, 6*1.037^(times-1))
 Lik.Test.Stat = -2*(LL.Bestfit.Geo-LL.Bestfit.BH)
 
 # The critical value of the test statistic at the 0.05 alpha significance level
+# If Lik.Test.Stat > qchisq(0.95,1), then the simpler model is rejected.
 qchisq(0.95,1)
 
-# The p-value for this test statistic is:
-pval = pchisq(Lik.Test.Stat,1)
+# The p-value associated with rejecting the null hypothesis is:
+pval = 1-pchisq(Lik.Test.Stat,1)
+# This p-value suggests that it is highly unlikely that these data represent a population
+# that is experiencing density independent, geometric growth.
+
+# USING ONLY THE DATA FROM THE FIRST 40 DAYS
+#-------------------------------------------
+time.cutoff<-40
+
+# We need to reformulate LLGeo because previous we constrained the 
+# fitted values lambda values to be between 0.99 and 1.037. In this version
+# below lambda is constrained to be less than 1.095
+LLGeo <- function(lambda){
+  R=NULL
+  # The lambda values need to be tightly constrained otherwise the prediction can be really off due
+  # to the exponential growth
+  if(lambda>=.99 & lambda<=1.09){
+    # We compare the model prediction to the measured population size for each data point.
+    for(i in seq(1,length(Table1$time))){
+      # all measurements taken after time.cutoff days are ignored.
+      if(Table1$time[i]<=time.cutoff){
+        # t is the time recorded in the Tribolium experiment
+        t = Table1$time[i]
+        # Below is the formula for geometric population growth. The population size of day 1 is 6. This
+        # reformulation ensures that when t=1 the predicted population size is 6 and that on each successive
+        # day the population size increases by a factor of lambda from its previous day's size (i.e., as assumed by
+        # geometric growth)
+        Geo.Pred = 6*lambda^(t-1)
+        # Assume the residuals follow a Poisson distribution. Residuals are the difference between the measured and
+        # model predicted values
+        R1 = dpois(Table1$measured[i], Geo.Pred)
+        # Make all the calculated probabilities into a list.
+        R = rbind(R,R1)}}
+    # Calculate the negative log likelihood for all observed data for a particular lambda value.
+    # Each en
+    Rout=-sum(log(R))}
+  else
+  {Rout = 10e6}
+  return(Rout)
+}
+
+LLBH.Result = mle2(LLBH, start = list(lambda = 1.03, K=150),method = "Nelder-Mead")
+LLGeo.Result = mle2(LLGeo, start = list(lambda = 1.02))
+LL.Bestfit.Geo = -614.46 
+LL.Bestfit.BH = -614.46 
+Lik.Test.Stat = -2*(LL.Bestfit.Geo-LL.Bestfit.BH)
+
