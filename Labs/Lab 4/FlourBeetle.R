@@ -287,7 +287,7 @@ Lik.Test.Stat = -2*(LL.Bestfit.Geo38-LL.Bestfit.BH38)
 # Now the likelihood test statistic is 0. This is less than
 qchisq(0.95,1)
 # and so we fail to reject the null hypothesis that Tribolium population growth is
-# density dependent.
+# not density dependent.
 
 # Let's plot these data and the model fit, so that we can visually inspect whether there
 # is much difference between the fit of the geometric model and the Beverton-Holt
