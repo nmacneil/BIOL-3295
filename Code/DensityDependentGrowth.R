@@ -136,8 +136,8 @@ plot(Ricker.output$time, Ricker.output$Popn.Size, typ="l", xlab = "time, t", yla
 Ricker.output = Ricker(1, 4.5, 20, 0, 30)
 plot(Ricker.output$time, Ricker.output$Popn.Size, typ="l", xlab = "time, t", ylab = "Population Size, N_t", main = "Ricker, r = 4.5")
 
-Ricker.output = Ricker(1, 0.9, 20, 0, 30)
-plot(Ricker.output$time, Ricker.output$Popn.Size, typ="l", xlab = "time, t", ylab = "Population Size, N_t", main = "Ricker, r = 0.9")
+Ricker.output = Ricker(1, -0.5, 20, 0, 30)
+plot(Ricker.output$time, Ricker.output$Popn.Size, typ="l", xlab = "time, t", ylab = "Population Size, N_t", main = "Ricker, r = -0.5")
 
 ######## Beverton-Holt population growth
 # Consider 4 different parameter values
@@ -153,3 +153,22 @@ plot(BH.output$time, BH.output$Popn.Size, typ="l", xlab = "time, t", ylab = "Pop
 BH.output = BevertonHolt(1, 0.9, 20, 0, 30)
 plot(BH.output$time, BH.output$Popn.Size, typ="l", xlab = "time, t", ylab = "Population Size, N_t", main = "BH, lambda = 0.9, K=20", ylim=c(0,20))
 
+###### Cobwebbing diagrams
+par(mfrow = c(1,1))
+N = seq(0,100,.2)
+lambda = 1.2
+K=50
+plot(N, lambda*N*(1-N/K), main = "May's logistic, lambda = 1.2, K =50", xlab = "N_t", ylab = "N_{t+1}", typ="l", ylim = c(0,15), xlim = c(0,20))
+lines(N,N, lty=2)
+
+lambda = 2.5
+plot(N, lambda*N*(1-N/K), main = "May's logistic, lambda = 2.5, K =50", xlab = "N_t", ylab = "N_{t+1}", typ="l", ylim = c(0,40), xlim = c(0,50))
+lines(N,N, lty=2)
+
+lambda = 4.5
+plot(N, lambda*N*(1-N/K), main = "May's logistic, lambda = 4.5, K =50", xlab = "N_t", ylab = "N_{t+1}", typ="l", ylim = c(0,60), xlim = c(0,70))
+lines(N,N, lty=2)
+
+lambda = 4.5
+plot(N, lambda*N/(1+N*(lambda - 1)/K), main = "Beverton-Holt, lambda = 4.5, K =50", xlab = "N_t", ylab = "N_{t+1}", typ="l", ylim = c(0,60), xlim = c(0,80))
+lines(N,N, lty=2)
