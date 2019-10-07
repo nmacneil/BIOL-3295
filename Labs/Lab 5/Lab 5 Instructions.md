@@ -110,10 +110,13 @@ Write a report describing the results of your analysis of the yellow columbine p
 
 -	In the _Results_ section, describe the findings of your analysis:
 
-   What was the intrinsic rate of growth?
-   Write out the projection matrix and explain what the elements of the projection matrix mean.
-   What is the stable stage distribution? What does it mean?
-   Include a graph of the population dynamics of the different plant stages of yellow columbine. In the figure caption, make sure you mention what each of the different line types represents.
+  - What was the intrinsic rate of growth?
+  
+  - Write out the projection matrix and explain what the elements of the projection matrix mean.
+  
+  - What is the stable stage distribution? What does it mean?
+  
+  - Include a graph of the population dynamics of the different plant stages of yellow columbine. In the figure caption, make sure you mention what each of the different line types represents.
   
 -	In the _Discussion_ section, you should address the following questions:
 
