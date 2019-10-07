@@ -62,7 +62,7 @@ Will the population of yellow columbine in plot 909 grow (based on the data from
 
 8.	Type the command,
 ```
-> nt=pop.projection(A,n,20)
+> nt = pop.projection(A,n,20)
 ```
 into the `R Studio console`. This command starts with an initial population size of `n` and uses the projection matrix `A`, to calculate the size of the population for the next 19 years. Note that in the code `n = c(10000, 100, 100, 100, 100)` means that we start with 10,000 seeds and 100 of each type of plant. The predicted number of yellow columbine in each stage each year is,
 
@@ -83,7 +83,7 @@ into the `R Studio console`. Reset the number of years into the future that you 
 
 The stable stage distribution is dominated by the abundance of seeds. To calculate the relative abundance of just the plant stages type,
 ```
->nt$stage.vectors[2:5,19]/sum(nt$stage.vectors[2:5,19])
+> nt$stage.vectors[2:5,19]/sum(nt$stage.vectors[2:5,19])
 ```
 
 How does the result compare to `stage.structure(A)`. About what percentage of plants would we expect to be flowering?
