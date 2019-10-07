@@ -7,5 +7,4 @@
   * Pianka, 1970 https://www.jstor.org/stable/2459020?seq=1#metadata_info_tab_contents and
   * Travis et al. 2013 https://www.ncbi.nlm.nih.gov/pubmed/23598362
 - Count the ducks and submit your pull request!!
-- Here's the youtube for class last Friday when there was the strike for climate action: https://www.youtube.com/watch?v=UisbkgNlaOE
 - For getting help with R/Rstudio, I find (coarse language not withstanding), The pirates guide to R pretty good: https://bookdown.org/ndphillips/YaRrr/
