@@ -17,8 +17,8 @@ sf=subset(aq.trans, year==1998 & plot==909, c(year, plant, stage, fruits, fate))
 # produced by the 1998 population
 seedlings=nrow(subset(aq.trans, plot==909 & year==1999 & stage=="recruit"))
 
-# Assumptions concerning the survival of seeds, the seed bank size and
-# the numbers of seeds produced per fruit.
+# Information on seed bank size and survivorship was unavailable. Therefore,
+# we make the assumptions as described below
 seed.survival = 0.4
 seed.bank.size = 1000
 seeds.per.fruit = 50
