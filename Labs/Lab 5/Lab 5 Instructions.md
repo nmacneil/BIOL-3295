@@ -3,7 +3,7 @@
 
 This report is due Wednesday Oct 16 at 2pm
 
-<img src = "https://upload.wikimedia.org/wikipedia/commons/9/9d/Aquilegia_chrysantha_2.jpg", width=70%>
+![](https://upload.wikimedia.org/wikipedia/commons/9/9d/Aquilegia_chrysantha_2.jpg)
 
 1. Open `RStudio` and install the package `popbio`.
 2. Download and run the file `Yellow_Columbine_Stage_Structure.R`. This code will produce 2 graphs: 1) the number of seeds over time, and 2) the number of the different types of plants over time.
