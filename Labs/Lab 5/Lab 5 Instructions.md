@@ -1,45 +1,46 @@
 # Lab 5: Compuational analysis of yellow columbine (_Aquilegia chrysantha_) stage-structured population dynamics
+This file is best viewed on the Github website.
 
 This report is due Wednesday Oct 16 at 2pm
 
 ![Stan Shebs [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)]](https://upload.wikimedia.org/wikipedia/commons/9/9d/Aquilegia_chrysantha_2.jpg)
 
 1. Open `RStudio` and install the package `popbio`.
-1. Download and run the file `Yellow_Columbine_Stage_Structure.R`. This code will produce 2 graphs: 1) the number of seeds over time, and 2) the number of the different types of plants over time.
+2. Download and run the file `Yellow_Columbine_Stage_Structure.R`. This code will produce 2 graphs: 1) the number of seeds over time, and 2) the number of the different types of plants over time.
 
-1.	Into the R console type:
+3.	Into the R console type:
 ```
 > head(aq.trans)
 ```
 
 This command lists the first six row of data entries along with their headings. To understand the meaning of the columns in the dataframe, click the `Packages` tab in `RStudio`, click `popbio` and then scroll down to `aq.trans` and click on that. Does the dataset contain any information on the number of seeds produced each year?
 
-To determine how many different plots are recorded in this dataset, into the R console type:
+To determine how many different plots are recorded in this dataset, into the `R Studio console` type:
 ```
 > table(aq.trans$plot)
 ```
 
 Modify this command to generate summary statistics for other variables that you are interested in.
  
-1.	The code uses a subset of the data: only year 1998 and plot 909. To see the data subset, type:
+4.	The code uses a subset of the data: only year 1998 and plot 909. To see the data subset, type:
 ```
 > sf
 ```
 into the `R Studio console`. Does every flowering plant produce fruit?
 
-1.	The dataset does not contain any information on the number of seeds. In the code, what assumptions are made to estimate the size of the seed bank in 1999?
+5.	The dataset does not contain any information on the number of seeds. In the code, what assumptions are made to estimate the size of the seed bank in 1999?
 
-`.	Type,
+6.	Type,
 ```
 > A
 ```
-into the `R Studio console`. This is the projection matrix. Where i is an index for the row number (top to bottom) and j is an index for the column (left to right), the elements of the projection matrix are the number of i that will be produced by each j over the course of a year.
+into the `R Studio console`. This is the projection matrix. Where _i_ is an index for the row number (top to bottom) and _j_ is an index for the column (left to right), the elements of the projection matrix are the number of _i_ that will be produced by each _j_ over the course of a year.
 
 Try it out – the number of seeds produced per seed is 0.4. This means that each seed has a 0.4 probability of surviving a year. How many small plants is each small plant expected to produce (i.e., the probability a small plant survives and remains in the small class)? How many large? How many with flowers?
 
 If a small plant, next year, can only be a small plant, a large plant a flowering plant, or dead, what must be the probability that the small plant dies? What is the probability a large plant dies? A flower?
 
-1.	Type
+7.	Type
 ```
 > nt
 ```
@@ -48,13 +49,13 @@ into the `R Studio console`. The intrinsic rate of growth of the population is t
 ```
 > nt$lambda
 ```
-Will the population of yellow columbines in plot 909 grow?
+Will the population of yellow columbine in plot 909 grow?
 
-1.	Type the command,
+8.	Type the command,
 ```
 > nt=pop.projection(A,n,20)
 ```
-into the `R Studio console`. This command starts with an initial population size of n and uses the projection matrix A, to calculate the size of the population for the next 19 years. Note that in the code
+into the `R Studio console`. This command starts with an initial population size of n and uses the projection matrix `A`, to calculate the size of the population for the next 19 years. Note that in the code
 ```
 > n = c(10000, 100, 100, 100, 100)
 ```
@@ -64,12 +65,12 @@ into the `R Studio console`. This command starts with an initial population size
 ```
 After 19 years, which stages have increased in prevalence? Consult the graphs (be sure to figure out which lines correspond to which stages – you will need to consult the R code). Does it look like the population will persist? Increase the number of years that you predict the size of the population for. Were you correct that the population will go extinct?
 
-1.	For this model, eventually the fraction of the population that is in each stage will be unchanging. The relative abundance of each stage (providing that sufficient time has passed) is predicted by the right eigenvalue of the projection matrix, A. Type,
+9.	For this model, eventually the fraction of the population that is in each stage will be unchanging. The relative abundance of each stage (providing that sufficient time has passed) is predicted by the right eigenvalue of the projection matrix, A. Type,
 ```
 > stable.stage(A)
 ```
 
-into the `R console`. Reset the number of years into the future that you predict the population abundance to 19 (i.e., the command from 8.) and re-run Lab5.R (using the Source button). Now, we wish to test whether the predicted relative of abundance of each stage is achieved on the 19th year into the future. Type,
+into the `R console`. Reset the number of years into the future that you predict the population abundance to 19 (i.e., the command from 8.) and re-run `Yellow_Columbine_Stage_Structure.R` (using the `Source` button). Now, we wish to test whether the predicted relative of abundance of each stage is achieved on the 19th year into the future. Type,
 ```
 > nt$stage.vectors[,19]/sum(nt$stage.vectors[,19])
 ```
@@ -83,7 +84,7 @@ About what percentage of plants would we expect to be flowering?
 
 If the population does not start at the stable stage distribution it may take some time to reach the stable distribution. Is the stable stage distribution reached on the 5th year? Modify the commands from above to determine this.
 
-1.	Suppose it were possible to increase any non-zero entry of the projection matrix by a fixed amount. Increasing the value of which entry by a fixed amount would have the biggest affect the intrinsic growth rate, lambda?
+10.	Suppose it were possible to increase any non-zero entry of the projection matrix by a fixed amount. Increasing the value of which entry by a fixed amount would have the biggest affect the intrinsic growth rate, `lambda`?
 
 To answer this question type,
 ```
@@ -91,7 +92,7 @@ To answer this question type,
 ```
 The results of this command tells us that increasing the fraction of seeds that germinate each year would most substantially increase the intrinsic growth rate. How would this information help us to figure out how best to promote the growth of yellow columbine?
 
-1.	Currently, the population of yellow columbines is destined to go extinct. Change the value of seed.survival until the population is just able to persist. What is this value?
+11.	Currently, the population of yellow columbine is destined to go extinct. Change the value of `seed.survival` until the population is just able to persist. What is this value?
 
 ## To hand in:
 
