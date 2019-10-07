@@ -105,8 +105,7 @@ The results of this command tells us that increasing the fraction of seeds that 
 Write a report describing the results of your analysis of the yellow columbine population. Your report should include the following:
 
 -	In the _Introduction_ section, write one sentence (with a citation) describing yellow columbine (_Aquilegia chrysantha_). The citation may be from the Internet or from the peer-reviewed literature.
-
--	In the _Data_ section, describe the data that was used to parameterize the projection matrix. Specifically, you should mention that only a subset of the data was used in the analysis. Be sure to mention the assumptions that were made regarding the seed bank.
+  -	In the _Data_ section, describe the data that was used to parameterize the projection matrix. Specifically, you should mention that only a subset of the data was used in the analysis. Be sure to mention the assumptions that were made regarding the seed bank.
 
 -	In the _Results_ section, describe the findings of your analysis.
   - What was the intrinsic rate of growth?
