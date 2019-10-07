@@ -1,5 +1,5 @@
 # Lab 5: Compuational analysis of yellow columbine (_Aquilegia chrysantha_) stage-structured population dynamics
-This file is best viewed on the Github website.
+(This file is best viewed on the Github website - and other .md files too)
 
 This report is due Wednesday Oct 16 at 2pm
 
