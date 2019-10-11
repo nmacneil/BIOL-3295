@@ -1,0 +1,136 @@
+\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage[margin=2cm]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+							% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{placeins}
+
+%\date{}							% Activate to display a given date or no date
+
+
+
+\begin{document}
+\textbf{BIOL 3295 Fall 2019}
+
+\textbf{Midterm due Friday Nov 1, 1pm}\\
+
+If you need help with this midterm, please stop by my office so I can help you.
+
+\begin{description}
+\item[1.] May's logistic growth equation is,
+%
+\begin{equation}\label{eq:DTL}
+N_{t+1} = \lambda N_t \left(1-\frac{N_t}{K}\right).
+\end{equation}
+%
+\begin{description}
+\item[$(a)$] In discrete time, an equilibrium is defined as a value of $N_t$ such that $N_t = N_{t+1}$. Verify that $N_t=\frac{\lambda-1}{\lambda}K$ is an equilibrium point for equation \ref{eq:DTL}.
+
+\item[$(b)$] Assuming that $N_t > 0$, rearranging equation \ref{eq:DTL} gives,
+%
+\begin{equation}\label{eq:DT2}
+\frac{N_{t+1}}{N_t} = \lambda - \lambda \frac{N_t}{K},
+\end{equation}
+%
+where $\frac{N_{t+1}}{N_t} > 1$ indicates an increase, $\frac{N_{t+1}}{N_t} = 1$ indicates no change, and $\frac{N_{t+1}}{N_t} < 1$  indicates a decrease in population size from year $t$ to year $t+1$. Let $\lambda>0$ and $K>0$, sketch a graph with $\frac{N_{t+1}}{N_t}$ on the y-axis, and $N_t$ on the x-axis. For your graph label:
+\begin{description}
+\item[$\bullet$] The intercept on the y-axis,
+\item[$\bullet$] The intercept on the x-axis,
+\item[$\bullet$] The slope of the line,
+\item[$\bullet$] $\frac{N_{t+1}}{N_t} = 1$
+\item[$\bullet$] The value of $N_t$ where the lefthand side of equation \ref{eq:DT2} is equal to 1, i.e., $N_t=\frac{\lambda-1}{\lambda}K$.
+\end{description}
+\item[(c)] Use your answers from (b) to help you make a line-arrow diagram for equation \ref{eq:DTL}.
+\begin{description}
+\item[$\bullet$] Mark all the equilibria for equation \ref{eq:DTL} with a circle
+\item[$\bullet$] Mark the values of $N_t$, where $\frac{N_{t+1}}{N_t} > 1$ with arrows to the right.
+\item[$\bullet$] Mark the values of $N_t$, where $\frac{N_{t+1}}{N_t} < 1$ with arrows to the left.
+\item[$\bullet$] For $N_t < 0$, test $\frac{N_{t+1}}{N_t}$ by substituting specific values into equation \ref{eq:DTL}. For example, let $\lambda = 1$, $N_t = -1$, $K=1$ and calculate $N_{t+1}$. Is $\frac{N_{t+1}}{N_t} > 1$? Provide your calculations.
+\end{description}
+\end{description}
+
+\item[2.] Make an R script, that makes graphs of population size, $N_{t}$, versus time, $t$, for May's discrete time logistic map. The segments of code you will need are found in `DensityDependentGrowth.R' in the `Code' folder of the course Github. You should copy and paste the relevant sections into your new script. You will need to change some of the parameter values to complete this question. You should make graphs for $K=10$ and $\lambda$ such that the population dynamics show:
+\begin{description}
+\item[$(a)$] Convergence to a positive equilibrium point
+\item[$(b)$] Convergence to the extinction equilibrium
+\item[$(c)$] Oscilliations with a regular period
+\item[$(d)$] Chaos
+\end{description}
+I will book time in the computer lab for you to complete this question. If there is a specific time you would like booked, please contact me. You should hand in a print out of your code, and the four graphs described above.
+
+\item[3.] Consider the `Newfoundland and Labrador Moose Plan' written by the Department of Environment and Conservation \url{https://www.flr.gov.nl.ca/wildlife/wildlife/pdf/Moose_Plan_2015_2020.pdf}.
+\begin{description}
+\item[$(a)$] Do you think moose population dynamics would be best modelled as a discrete or continuous time model formulation? Why?
+\item[$(b)$] Describe the conditions under which the Newfoundland moose population might follow a geometric/exponential growth equation.
+\item[$(c)$] How is a population defined for this management plan? Provide a definition for a population and discuss how well the definition of a population is met for this plan.
+\item[$(d)$] Give one reason why May's logistic map might fail to meet the needs of the Department of Environment and Conservation as a method to predict the dynamics of moose in the absence of hunting.
+\item[$(e)$] Consider the following modification to the Beverton-Holt model:
+%
+\begin{equation}\label{eq:BH2}
+N_{t+1} = \frac{\lambda N_t}{1 + N_t\frac{\lambda - 1}{K}}  - h N_t,
+\end{equation}
+%
+where $h$ is the fraction of the moose population that dies due to hunting each year. Calculate the equilibria of this equation by setting $N_{t+1} = N_t = N^*$ and finding all the solutions for $N^*$.
+
+
+\item[$(f)$] Suppose $\lambda = 1.7$, $K = 145,000$ individuals and $h=0.5$. Consider two initial population sizes, $N_0 = 10,000$ and $N_0 = 100,000$ individuals. Calculate the population size for $N_1, N_2,$ and $N_3$ for each of these two initial conditions. Present your results as a table. 
+\item[$(g)$] The number of moose harvested in year $t$, is $h N_t$. Make a graph showing the relationship between the number of moose harvested in year $t$ (x-axis), and the population size the following year, $N_{t+1}$ (y-axis), for all the population sizes calculated in $(f)$.
+\item[$(h)$] Now repeat questions (f) and (g) with $h=0.1$.
+\item[$(i)$] Is the effect of hunting on the moose population size the next year more substantial when the moose population size is low (i.e., ~10,000 individuals) or high (i.e., ~100,000 individuals). Provide your reasoning.
+\end{description}
+
+\item[4.]  Consider \cite{travis}
+\begin{description}
+\item[$(a)$] Describe the distinction between density-dependent selection and density-dependent fitness as explained in \cite{travis}.
+\item[$(b)$] If the underlying population dynamics for two genotypes (denoted $i=1$ and $i=2$) are exponential population growth, then we might model the dynamics of these genotypes as,
+%
+\begin{eqnarray}
+\frac{dN_1}{dt}& = & r_1 N_1,\\
+\frac{dN_2}{dt} & = & r_2 N_2,
+\end{eqnarray}
+%
+where $r_i$ is the intrinsic growth rate for genotype $i$ and $N_i$ is the population size for individuals with the genotype $i$. Here, there is no interaction between the two genotypes because the change in population size of one genotype does not depend on the population size of the other genotype (i.e., $N_2$ does not appear on the righthand side of the equation for $\frac{dN_1}{dt}$, and visa versa for $N_1$ and $\frac{dN_2}{dt}$). In contrast, when the population dynamics are density-dependent \cite{travis} suggest the following system of equations,
+%
+\begin{eqnarray}
+\frac{dN_1}{dt}& = & a_1 N_1 - b_{11} N_1 - b_{12} N_2,\\
+\frac{dN_2}{dt} & = & a_2 N_2 - b_{22} N_2 - b_{21} N_1,
+\end{eqnarray}
+%
+
+(see \cite{travis} for definitions of the parameters). Assume that the two genotypes represent different phenotypes for individuals of the same species. When population growth is density-dependent, provide a rationale for why the population size of the individuals of the \emph{other} genotype should influence the change in population size of focal genotype.
+
+\end{description}
+
+\item[5.] You are part of a research time that has parameterized an exponential growth model with $r=1.3$. The team decides that the model would be better as a discrete time geometric growth model, but does not want the population dynamics to change.
+\begin{description}
+\item[$(a)$] What value of $\lambda$ should you choose?
+\item[$(b)$] For these $r$ and $\lambda$ values, choose a positive initial population size, $N_0 = N(0)$. Calculate $N_1, N_2$ and $N_3$ for the discrete time geometric growth version of your model and $N(1), N(2)$ and $N(3)$ for your continuous time exponential growth model. Show all your calculations.
+\item[$(c)$] If you mistakenly set $\lambda = 1.3$, how would the population size predicted under the geometric growth model compare to the population size predicted under the exponential growth model with $r=1.3$ given the same initial population size. Explain your reasoning.
+\end{description}
+
+\item[6.] Based on \cite{pianka} describe the conditions under which genotypes that produce many, low-quality, offspring would be selected.
+
+\item[7.]
+
+\begin{description}
+\item[$(a)$] Exercise 2.1 in \cite{vandermeer}, however, you can project the population 3 times, rather than 15, as asked in the book. The `overall population' is the sum of the abundance in each stage.
+\item[$(b)$] Exercise 2.3 in \cite{vandermeer}, which asks you to plot the abundance of each stage from the calculations you made in Exercise 2.1. (you should make the plot where you have projected 3 times as consistent with question 7(a).
+\item[$(c)$] Exercise 2.9 in \cite{vandermeer}. It is sufficient to project the population 3 times, rather than 10 as suggested.  The intrinsic rate of natural increase is the slope of this graph (natural log of the total population density on the y-axis, and time on the x-axis).
+\end{description}
+
+\end{description}
+
+
+\begin{thebibliography}{10} 
+\bibitem[Pianka, 1970]{pianka} Pianka, E. 1970. On r- and K-selection. Am Nat. 104: 592-597.
+\bibitem[Travis et al., 2013]{travis} Travis, H., J Leips, and F. H. Rodd. 2013. Evolution in population parameters: density-dependent selection or density-dependent fitness? Am Nat. 181: S9-S20.
+\bibitem[Vandermeer and Goldberg, 2013]{vandermeer} Vandermeer, J. H. and D. E. Goldberg, 2013. Population ecology: first principles. Princeton University Press. Available as an ebook from the MUN library. \url{https://ebookcentral.proquest.com/lib/mun/detail.action?docID=1205619}
+\end{thebibliography}
+
+
+
+\end{document}  
