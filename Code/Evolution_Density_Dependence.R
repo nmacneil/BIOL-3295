@@ -39,7 +39,7 @@ out = ode(y=c(N1=1,N2=1),times=times,func=EvolutionEqns,p=NULL, method = "ode45"
 # sensitive to competition: not surprisingly genotype 2 is more fit and
 # goes to fixation while genotype 1 goes extinct.
 
-plot(out[,1], out[,2], ylim = c(0, 2), typ="l", col = "red", xlab = "time",ylab = "no. of individuals with genotype 1 or 2", main = "Genotype 2 (red) sup. competitor & larger r")
+plot(out[,1], out[,2], ylim = c(0, 2), typ="l", col = "red", xlab = "time",ylab = "no. of individuals with genotype 1 or 2", main = "Genotype 2 (blue) sup. competitor & larger r")
 lines(out[,1], out[,3], col = "blue")
 
 # CASE 2. Making genotype 1 the better competitor, while genotype 2 still has
