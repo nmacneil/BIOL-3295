@@ -7,6 +7,13 @@ rm(list=ls())
 # Load a package that provides a color palette
 require(viridis)
 
+# The number of time steps to run the simulation
+total.time = 500
+# Larval mortality rate
+l0 = 1
+# Adult mortality rate
+l1 = 1
+
 # Record the directory of this file. It is hard to automate
 # this step: you will need to write it in.
 wd = "/Users/amyhurford/Desktop/BIOL-3295/Labs/Lab 6/"
@@ -20,84 +27,98 @@ strategies.list = list.files('Body_Size_Strategies')
 # The number of strategies
 Number.Strategies = length(strategies.list)
 
-# Strategy is a dataframe listing all the strategies. The line below
-# is preallocation
-Strategy = NULL
+# set the working directory to the subfolder: "Body_Size_Strategies", note
+# that all the strategies you want to load in should be in a subfolder
+# located in the same directory as this file.
+setwd("Body_Size_Strategies")  
 
-# The initial number of individuals with each strategy
-# Preallocation
-Number = matrix(0,total.time,Number.Strategies)
-# Begin with equal abundance of each strategy
-Number[1,1:Number.Strategies] = 1000/Number.Strategies
+source(strategies.list[1])
+Strategy = data.frame(Strategy=1,L=L)
 
-Development = function(L){
-  d0 =1
-  d1 = 1
-  d2 = 1
-  D = d0*L^d1 + d2
-}
-
-Fecundity = function(b){
-  d0 =1
-  d1 = 1
-  d2 = 1
-  D = d0*L^d1 + d2
-}
-
-Mortality = 
-
-  # set the working directory to the subfolder: "Body_Size_Strategies", note
-  # that all the strategies you want to load in should be in a subfolder
-  # located in the same directory as this file.
-  setwd("Body_Size_Strategies")  
-  
 # Each strategy is named by its position in strategies.list.
-for(i in seq(1,Number.Strategies)){
-source(strategies.list[i])
-  D = Development(L)
-Strategy = rbind(Strategy,c(Name=i, L=L, D=D))
+for(i in seq(2,Number.Strategies)){
+  source(strategies.list[i])
+  Strategy = rbind(Strategy,c(Strategy = i,L=L))
 }
 
 # Change back the working directory
 setwd(wd)
 
-# Strategy is converted into a dataframe.
-Strategy = as.data.frame(Strategy)
-
-# The number of time steps to run the simulation
-total.time = 500
 
 
+# The development function
+Development = function(L){
+  d0 =1
+  d1 = 1
+  d2 = 1
+  D = d0*L^d1 + d2
+  return(D)
+}
+
+Develop.time = Development(Strategy$L)
+Strategy = cbind(Strategy,Develop.time)
+
+# Define the characteristics of all indviduals in the population
+strategy = NULL
+develop.time = NULL
+L = NULL
+age = NULL
+for(i in seq(1,Number.Strategies)){
+  strategy = c(strategy,rep(i,1000/Number.Strategies))
+  develop.time=c(develop.time,rep(Strategy$Develop.time[i],1000/Number.Strategies))
+  L = c(L,rep(Strategy$Develop.time[i],1000/Number.Strategies))
+  age=c(age,rep(0,1000/Number.Strategies))
+}
+
+Popn = data.frame(cbind(strategy=strategy,age=age,L=L,develop.time))
+
+# The fecundity function
+Fecundity = function(a,L){
+  m1 = 1
+  m2 = 1
+  m3 = 1
+  m4 = 1
+  m5 = 1
+  m0 = m4*L^m5
+  m = m0*(1-exp(-m1*(a-m2))*exp(-m3*a))
+  return(m)
+}
+
+dscore = age
+bscore = age
+Number = matrix(0,total.time+1,1+Number.Strategies)
+Number[1,]=c(0,t(unname(table(Popn$strategy))))
 
 # Determine the temporal dynamics
-for(t in seq(1,total.time-1)){
+for(t in seq(1,total.time)){
 # Each strategy has a corresponding d-score, based on the death
 # rate for that strategy and the number of individuals of that strategy
-dscore = Strategy$d*Number[t,]
+dscore[Popn$age>=Popn$develop.time] = l1
+dscore[Popn$age<Popn$develop.time] = l0
 # cum.dscore: divide up a number line into intervals proportional to the
 # d-score for each strategy
 cum.dscore = cumsum(dscore)
 # r1: choose a random number to decide an individual of which strategy
 # will die
-r1 = runif(1, 0, cum.dscore[Number.Strategies])
+r1 = runif(1, 0, length(Popn[,1]))
 # strategy.d: the strategy of the individual that will die
-strategy.d = min(which(cum.dscore>r1))
-# At t+1 the number of individuals for each strategy is unchanged...
-Number[t+1,] = Number[t,]
-# ... except, for "strategy.d" the index of the strategy that experiences
-# the death, for this strategy the number of individuals is reduced by 1.
-Number[t+1,strategy.d] = Number[t,strategy.d]-1
-# bscore: A birth score associated with each strategy based on the value
-# of "b" and the number of indiviuals of that strategy
-bscore = Strategy$b*Number[t+1,]
+ind.d = min(which(cum.dscore>r1))
+Popn = Popn[-ind.d,]
+# bscore
+bscore =rep(0,length(Popn[,1]))
+bscore[Popn$age>=Popn$develop.time]=Fecundity(Popn$age[Popn$age>=Popn$develop.time],Popn$L[Popn$age>=Popn$develop.time])
+Popn$age = Popn$age+1
 # cum.bscore: break-up a number line so that intervals are proportional to
 # the bscore
 cum.bscore = cumsum(bscore)
+if(cum.bscore[length(Popn[,1])]>0){
 # Select that strategy that reproduces
-r1 = runif(1, 0, cum.bscore[Number.Strategies])
-strategy.b = min(which(cum.bscore>r1))
-# Increase the number of individuals of the strategy that gave birth by 1.
-Number[t+1,strategy.b] = Number[t+1,strategy.b]+1
+r1 = runif(1, 0, cum.bscore[length(Popn[,1])])
+ind.b = min(which(cum.bscore>r1))
+Popn = rbind(Popn,c(strategy = Popn$strategy[ind.b], age=0,L=Popn$L[ind.b]),develop.time=Popn$develop.time[ind.b])
+}
+index(Popn, seq(1,length(Popn[,1])))
+Number[t+1,] = c(unname(t),t(unname(table(Popn$strategy))))
 }
 
 #Plot the results
