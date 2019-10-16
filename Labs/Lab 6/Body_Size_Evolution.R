@@ -7,12 +7,15 @@ rm(list=ls())
 # Load a package that provides a color palette
 require(viridis)
 
+
 # The number of time steps to run the simulation
 total.time = 500
 # Larval mortality rate
 l0 = 1
 # Adult mortality rate
 l1 = 1
+Popn.Size=1000
+
 
 # Record the directory of this file. It is hard to automate
 # this step: you will need to write it in.
@@ -64,10 +67,10 @@ develop.time = NULL
 L = NULL
 age = NULL
 for(i in seq(1,Number.Strategies)){
-  strategy = c(strategy,rep(i,1000/Number.Strategies))
-  develop.time=c(develop.time,rep(Strategy$Develop.time[i],1000/Number.Strategies))
-  L = c(L,rep(Strategy$Develop.time[i],1000/Number.Strategies))
-  age=c(age,rep(0,1000/Number.Strategies))
+  strategy = c(strategy,rep(i,Popn.Size/Number.Strategies))
+  develop.time=c(develop.time,rep(Strategy$Develop.time[i],Popn.Size/Number.Strategies))
+  L = c(L,rep(Strategy$Develop.time[i],Popn.Size/Number.Strategies))
+  age=c(age,rep(0,Popn.Size/Number.Strategies))
 }
 
 Popn = data.frame(cbind(strategy=strategy,age=age,L=L,develop.time))
@@ -104,6 +107,7 @@ r1 = runif(1, 0, length(Popn[,1]))
 # strategy.d: the strategy of the individual that will die
 ind.d = min(which(cum.dscore>r1))
 Popn = Popn[-ind.d,]
+row.names(Popn) = seq(1,length(Popn[,1]))
 # bscore
 bscore =rep(0,length(Popn[,1]))
 bscore[Popn$age>=Popn$develop.time]=Fecundity(Popn$age[Popn$age>=Popn$develop.time],Popn$L[Popn$age>=Popn$develop.time])
@@ -115,18 +119,23 @@ if(cum.bscore[length(Popn[,1])]>0){
 # Select that strategy that reproduces
 r1 = runif(1, 0, cum.bscore[length(Popn[,1])])
 ind.b = min(which(cum.bscore>r1))
-Popn = rbind(Popn,c(strategy = Popn$strategy[ind.b], age=0,L=Popn$L[ind.b]),develop.time=Popn$develop.time[ind.b])
+new.ind = c(Popn$strategy[ind.b], 0,Popn$L[ind.b],Popn$develop.time[ind.b])
+Popn = rbind(Popn,new.ind)
+row.names(Popn) = seq(1,length(Popn[,1]))
 }
-index(Popn, seq(1,length(Popn[,1])))
-Number[t+1,] = c(unname(t),t(unname(table(Popn$strategy))))
+
+strategies.count = rep(0,Number.Strategies)
+strategies.summary = table(Popn$strategy)
+strategies.count[as.numeric(names(strategies.summary))]=unname(strategies.summary)
+Number[t+1,] = c(t, strategies.count)
 }
 
 #Plot the results
 #Fix the color palette so that we can make a legend that will be
 # correct for a variable number of strategies
 Colours = viridis(Number.Strategies)
-plot(seq(1,total.time), Number[,1], typ="l", col = Colours[1], ylim = c(min(Number),max(Number)), xlab = "time", ylab = "population size", main = "Evolution of maturation rate")
+plot(Number[,1], Number[,2], typ="l", col = Colours[1], ylim = c(min(Number[,2:(Number.Strategies+1)]),max(Number[,2:(Number.Strategies+1)])), xlab = "time", ylab = "population size", main = "Evolution of maturation rate")
 for(i in seq(2,Number.Strategies)){
-lines(seq(1,total.time), Number[,i], typ="l", col = Colours[i])
+lines(Number[,1], Number[,i+1], typ="l", col = Colours[i])
 }
-legend("topleft", legend = strategies.list, col=Colours, lty = rep(1,Number.Strategies),box.lwd = 0)
+legend("topleft", legend = Strategy$L, col=Colours, lty = rep(1,Number.Strategies),box.lwd = 0)
