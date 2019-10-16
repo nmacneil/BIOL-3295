@@ -1,4 +1,4 @@
-# EVOLUTIONARY SIMULATION: Evolution of body size in Drosphila
+# Evolution of body size in Drosphila
 # Based on the section beginning on p107 of Fox et al.
 
 # Remove all objects - usually start with this
@@ -51,12 +51,15 @@ setwd(wd)
 
 # The development function
 Development = function(L){
-  d0 =1
-  d1 = 1
-  d2 = 1
+  d0 =4
+  d1 = 2.7
+  d2 = 5
   D = d0*L^d1 + d2
   return(D)
 }
+
+Lvec = seq(.55,2,.01)
+plot(Lvec,Development(Lvec),typ="l", lwd=3, ylim = c(0,30), xlim = c(0.55,2), xlab = "Thorax length, L (mm)", ylab = "Development time, d(L)", main = "Fox et al. 2001: Evolutionary ecology, Fig. 8.2")
 
 Develop.time = Development(Strategy$L)
 Strategy = cbind(Strategy,Develop.time)
